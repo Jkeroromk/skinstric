@@ -7,13 +7,11 @@ import { Button } from "./ui/button";
 const Hero = () => {
   const [hoveredDiamond, setHoveredDiamond] = useState(null);
 
-  // Use transform only — text alignment won't animate. 
-  // So we keep text centered and just shift it left/right.
   let headingShift = "translate-x-0";
   if (hoveredDiamond === "left") {
-    headingShift = "translate-x-[28vw]";
+    headingShift = "translate-x-[24vw]";
   } else if (hoveredDiamond === "right") {
-    headingShift = "-translate-x-[28vw]";
+    headingShift = "-translate-x-[24vw]";
   }
 
   return (
@@ -22,20 +20,20 @@ const Hero = () => {
         className="
           relative 
           flex flex-col items-center justify-center
-          h-[90vh]
+          h-auto min-h-[90vh] md:h-[90vh] 
           md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
         "
       >
         {/* Mobile Diamonds */}
         <Diamond
-          className="absolute top-44 -left-2 right-0 mx-auto z-10 block lg:hidden"
-          size="w-[450px] h-[450px]"
+          className="absolute top-36 -left-2 right-0 mx-auto z-10 block lg:hidden"
+          size="w-[320px] h-[320px]"
           dotted
           borderColorClass="border-black"
         />
         <Diamond
-          className="absolute top-[200px] -left-2 right-0 mx-auto z-10 block lg:hidden"
-          size="w-[400px] h-[400px]"
+          className="absolute top-[165px] -left-2 right-0 mx-auto z-10 block lg:hidden"
+          size="w-[280px] h-[280px]"
           dotted
           borderColorClass="border-black"
         />
@@ -49,10 +47,23 @@ const Hero = () => {
             ${headingShift}
           `}
         >
-          <h1 className="text-[80px] lg:text-[100px] font-inter font-normal tracking-tighter leading-none">
+          <h1 className="text-[60px] lg:text-[100px] font-inter font-normal tracking-tighter leading-none">
             Sophisticated
             <br />
-            skincare
+            <span
+              className={`
+                block transition-transform duration-700 ease-in-out
+                ${
+                  hoveredDiamond === "left"
+                    ? "translate-x-[7vw]"
+                    : hoveredDiamond === "right"
+                    ? "-translate-x-[7vw]"
+                    : "translate-x-0"
+                }
+              `}
+            >
+              skincare
+            </span>
           </h1>
         </div>
 
@@ -60,8 +71,8 @@ const Hero = () => {
         <p
           className="
             block lg:hidden
-            mt-4 mb-8 w-[38ch]
-            text-xs font-semibold
+            mt-4 mb-8 w-[30ch]
+            text-[10px] font-semibold
             text-center text-muted-foreground
           "
         >
@@ -70,15 +81,15 @@ const Hero = () => {
         </p>
 
         {/* Mobile button */}
-        <div className="mt-8">
+        <div className="mt-4">
           <button className="relative flex flex-row items-center justify-center gap-4 lg:hidden">
-            <span className="text-[10px] font-bold">ENTER EXPERIENCE</span>
+            <span className="text-[8px] font-bold">ENTER EXPERIENCE</span>
             <Diamond
               className="rotate-45"
-              size="w-[30px] h-[30px]"
+              size="w-[24px] h-[24px]"
               dotted={false}
             />
-            <span className="absolute left-[80px] sm:left-[123px] lg:left-[123px] scale-[0.6]">
+            <span className="absolute left-[100px] scale-[0.5]">
               &#x25B6;
             </span>
           </button>
@@ -103,7 +114,7 @@ const Hero = () => {
         </p>
       </div>
 
-      {/* LEFT Diamond (always in DOM, fades out if hoveredDiamond === 'right') */}
+      {/* LEFT Diamond */}
       <div
         className={`
           hidden
@@ -148,14 +159,12 @@ const Hero = () => {
               size="w-[30px] h-[30px]"
               dotted={false}
             />
-            <span className="absolute left-[115px] scale-[0.6]">
-              &#x25B6;
-            </span>
+            <span className="absolute left-[115px] scale-[0.6]">&#x25B6;</span>
           </Button>
         </div>
       </div>
 
-      {/* RIGHT Diamond (always in DOM, fades out if hoveredDiamond === 'left') */}
+      {/* RIGHT Diamond */}
       <div
         className={`
           hidden
