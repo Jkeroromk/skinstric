@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Diamond from "@/components/diamond";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const Hero = () => {
   const [hoveredDiamond, setHoveredDiamond] = useState(null);
@@ -19,32 +20,28 @@ const Hero = () => {
       <div
         className="
           relative 
-          flex flex-col items-center justify-center
-          h-auto min-h-[90vh] md:h-[90vh] 
+          flex flex-col items-center justify-center h-[100dvh]
           md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2
         "
       >
         {/* Mobile Diamonds */}
-        <Diamond
-          className="absolute top-36 -left-2 right-0 mx-auto z-10 block lg:hidden"
-          size="w-[320px] h-[320px]"
-          dotted
-          borderColorClass="border-black"
-        />
-        <Diamond
-          className="absolute top-[165px] -left-2 right-0 mx-auto z-10 block lg:hidden"
-          size="w-[280px] h-[280px]"
-          dotted
-          borderColorClass="border-black"
-        />
+        <div className="absolute inset-0 flex items-center justify-center lg:hidden">
+          <Diamond
+            className="absolute top-1/2 left-1/2 -translate-x-[52%] -translate-y-1/2 w-[420px] h-[420px]"
+            dotted
+            borderColorClass="border-black"
+          />
+          <Diamond
+            className="absolute top-1/2 left-1/2 -translate-x-[52%] -translate-y-1/2 w-[280px] h-[280px]"
+            dotted
+            borderColorClass="border-black"
+          />
+        </div>
 
         {/* Heading (centered, shifts via transform) */}
         <div
           className={`
-            z-10 flex flex-col items-center justify-center text-center
-            -translate-y-8 -translate-x-1
-            transition-transform duration-700 ease-in-out
-            ${headingShift}
+            relative z-10 text-center transition-transform duration-700 ease-in-out ${headingShift}
           `}
         >
           <h1 className="text-[60px] lg:text-[100px] font-inter font-normal tracking-tighter leading-none">
@@ -55,9 +52,9 @@ const Hero = () => {
                 block transition-transform duration-700 ease-in-out
                 ${
                   hoveredDiamond === "left"
-                    ? "translate-x-[7vw]"
+                    ? "translate-x-[6vw]"
                     : hoveredDiamond === "right"
-                    ? "-translate-x-[7vw]"
+                    ? "-translate-x-[6vw]"
                     : "translate-x-0"
                 }
               `}
@@ -68,30 +65,21 @@ const Hero = () => {
         </div>
 
         {/* Mobile text */}
-        <p
-          className="
-            block lg:hidden
-            mt-4 mb-8 w-[30ch]
-            text-[10px] font-semibold
-            text-center text-muted-foreground
-          "
-        >
+        <p className="relative z-10 block lg:hidden w-[30ch] mt-4 text-[10px] font-semibold text-center text-muted-foreground">
           Skinstric developed an A.I. that creates a highly-personalised routine
           tailored to what your skin needs.
         </p>
 
         {/* Mobile button */}
-        <div className="mt-4">
-          <button className="relative flex flex-row items-center justify-center gap-4 lg:hidden">
+        <div className="relative z-10 mt-4 lg:hidden">
+          <button className="relative flex flex-row items-center justify-center gap-4">
             <span className="text-[8px] font-bold">ENTER EXPERIENCE</span>
             <Diamond
               className="rotate-45"
               size="w-[24px] h-[24px]"
               dotted={false}
             />
-            <span className="absolute left-[100px] scale-[0.5]">
-              &#x25B6;
-            </span>
+            <span className="absolute left-[100px] scale-[0.5]">&#x25B6;</span>
           </button>
         </div>
       </div>
@@ -212,6 +200,15 @@ const Hero = () => {
               &#x25B6;
             </span>
             Take the Test
+            <Link href="/testing" className="absolute inset-0">
+              <span className="sr-only">Take the Test</span>
+            </Link>
+          </Button>
+          <Button
+            onClick={() => (window.location.href = "/testing")}
+            className="absolute inset-0 opacity-0"
+          >
+            Invisible Click Layer
           </Button>
         </div>
       </div>
